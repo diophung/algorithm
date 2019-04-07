@@ -1,0 +1,4 @@
+bitarray
+mmh3
+nltk
+pytest
