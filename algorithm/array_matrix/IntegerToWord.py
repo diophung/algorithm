@@ -52,6 +52,7 @@ def __base_prefix(num):
 
 
 def int_to_word(num):
+    orig = num
     word = ""
     if num > MAX:
         raise ValueError("number too big. Max is {}".format(MAX))
@@ -72,8 +73,8 @@ def int_to_word(num):
     if 0 < num < TWENTY:
         d = int(num % 20)
         word += digits[d]
-        
-    return word
+    print("{:,}".format(orig))
+    return word + '\n'
 
 
 print(int_to_word(1))
@@ -89,7 +90,8 @@ print(int_to_word(1000000000))  # one billion
 print(int_to_word(0))  # zero
 print(int_to_word(1))  # one
 print(int_to_word(5))  # one
-print(int_to_word(10))  # eleven
+print(int_to_word(10))  # ten
+print(int_to_word(11))  # eleven
 print(int_to_word(12))  # twelve
 print(int_to_word(20))  # twenty
 print(int_to_word(21))  # twenty one
