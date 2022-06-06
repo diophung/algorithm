@@ -1,5 +1,6 @@
 # Problem: determine if 2 strings are anagrams
 # Solution 1 : O(nlogn) : compared sorted strings.
+import unittest
 
 
 def is_anagram_with_sorting(str_a, str_b):
@@ -13,11 +14,6 @@ def is_anagram_with_sorting(str_a, str_b):
     sorted_a = sorted(str_a)
     sorted_b = sorted(str_b)
     return sorted_a == sorted_b
-
-
-print(is_anagram_with_sorting("tod", "dot"))  # expect True
-print(is_anagram_with_sorting("bat", "bacteria"))  # expect False
-print(is_anagram_with_sorting(None, "N"))  # expect False
 
 
 def dict_from_string(st):
@@ -46,6 +42,14 @@ def is_anagram_without_sorting(a, b):
     return True
 
 
-print(is_anagram_without_sorting("bat", "tab"))  # expect True
-print(is_anagram_without_sorting("bac", "bacteria"))  # expect False
-print(is_anagram_without_sorting(None, "N"))  # expect False
+class TestRun(unittest.TestCase):
+
+    def test_sort_soln(self):
+        self.assertTrue(is_anagram_with_sorting("tod", "dot"))
+        self.assertFalse(is_anagram_with_sorting("bat", "bacteria"))
+        self.assertFalse(is_anagram_with_sorting(None, "N"))
+
+    def test_nonsort_soln(self):
+        self.assertTrue(is_anagram_without_sorting("bat", "tab"))
+        self.assertFalse(is_anagram_without_sorting("bac", "bacteria"))
+        self.assertFalse(is_anagram_without_sorting(None, "N"))
