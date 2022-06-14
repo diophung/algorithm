@@ -36,17 +36,43 @@ class KnapSack(object):
                 self.solve_recur(weights, values, max_w, n - 1)  # not include
             )
 
+    def solve_dp(self, weights, values, max_w, n):
+        dp = [[0 for x in range(max_w + 1)] for y in range(n + 1)]
+
+        # build table KS[value][weight]
+        for i in range(n + 1):
+            for w in range(max_w + 1):
+                if i == 0 or w == 0:
+                    dp[i][w] = 0
+                elif weights[i - 1] < max_w:  # this item can be in the optimal solution
+                        dp[i][w] = max(
+                            values[i - 1] + dp[i - 1][w - weights[i-1]],  # include this item
+                            dp[i - 1][w]                                 # not include this item
+                        )
+                else:
+                    dp[i][w] = dp[i-1][w]  # this item cannot be in optimal solution
+        return dp[n][max_w]
+
 
 class KnapSackTest(unittest.TestCase):
 
-    def test_knapsack_recursive(self):
+    def test_knapsack(self):
         ks = KnapSack()
         weights = [2,  2,  2]
         values = [3, 4, 8]
         self.assertTrue(ks.solve_recur(weights, values, max_w=4, n=3), 12)
+        self.assertTrue(ks.solve_dp(weights, values, max_w=4, n=3), 12)
 
-    def test_knapsack_recursive2(self):
+    def test_knapsack2(self):
+        ks = KnapSack()
+        weights = [2,  4]
+        values = [5, 10]
+        self.assertTrue(ks.solve_recur(weights, values, max_w=3, n=2), 5)
+        self.assertTrue(ks.solve_dp(weights, values, max_w=3, n=2), 5)
+
+    def test_knapsack_negative(self):
         ks = KnapSack()
         weights = [1, 4]
         values = [3, 10]
         self.assertTrue(ks.solve_recur(weights, values, max_w=2, n=2), 0)
+        self.assertTrue(ks.solve_dp(weights, values, max_w=2, n=2), 0)
