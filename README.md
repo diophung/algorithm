@@ -1,7 +1,9 @@
-# Getting ready
+# About this
 ------
+It's my leisure works on algorithms and data structure to keep my hand dirty.
+
 ## Requirements
-- python 2.x / 3.x
+- python 3.x
 - pip
 
 ## Set up
@@ -14,7 +16,7 @@ pip install -r requirements.txt
 python tests/TestSuite.py
 ```
 
-# Algorithm 
+# Algorithms
 ----------
 ## Divide & Conquer
 - Break down the original problem to smaller pieces and solve each of them, thus solve the whole problem.
@@ -29,7 +31,8 @@ python tests/TestSuite.py
 - Statistics, Probability, Computational Geometry
 
 ## Recursion
-- Tail call optimization, backtrack 
+- Tail call optimization
+- Backtrack 
 
 ## Greedy
 - Minimax, Maximin
