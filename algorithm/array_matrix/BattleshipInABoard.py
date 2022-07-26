@@ -27,8 +27,6 @@ Could you do it in one-pass, using only O(1) extra memory and without modifying 
 
 
 class BattleshipInBoard:
-    def __init__(self):
-        pass
 
     @staticmethod
     def count_ship(board):
