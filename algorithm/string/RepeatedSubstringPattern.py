@@ -1,4 +1,4 @@
-# Problem : determine if a string can be constructured by taking a substring
+# Problem : determine if a string can be constructed by taking a substring
 # of it and appending multiple copies of that substring.
 #
 # Algorithm:
@@ -8,7 +8,7 @@
 
 class RepeatedSubstringPattern:
     @staticmethod
-    def solution(s: str) -> bool:
+    def can_build(s: str) -> bool:
         substr = ''
         max_size = int(len(s) / 2) + 1  # multiply multiple times, must be > 1
         for i in range(max_size):
@@ -21,8 +21,8 @@ class RepeatedSubstringPattern:
         return False
 
 
-print(RepeatedSubstringPattern.solution("abab"))  # ab * 2, expected True
-print(RepeatedSubstringPattern.solution("ababc"))  # False
-print(RepeatedSubstringPattern.solution("123123123"))  # 123 * 3, expected True
-print(RepeatedSubstringPattern.solution("aa"))  # a * 2, True
-print(RepeatedSubstringPattern.solution("aabb"))  # False
+print(RepeatedSubstringPattern.can_build("abab"))  # ab * 2, expected True
+print(RepeatedSubstringPattern.can_build("ababc"))  # False
+print(RepeatedSubstringPattern.can_build("123123123"))  # 123 * 3, expected True
+print(RepeatedSubstringPattern.can_build("aa"))  # a * 2, True
+print(RepeatedSubstringPattern.can_build("aabb"))  # False

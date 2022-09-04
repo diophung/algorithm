@@ -18,7 +18,7 @@ class MergeInterval(object):
         res = []
         intervals = sorted(intervals, key=lambda i: i.start)
         for i in range(len(intervals)):
-            # mergeable, no overlap
+            # merge-able, no overlap
             if res and intervals[i].start >= res[-1].end:
                 res[-1].end = max(res[-1].end, intervals[i].end)
             else:

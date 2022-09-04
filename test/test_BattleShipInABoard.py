@@ -3,8 +3,11 @@ import unittest
 from algorithm.array_matrix.BattleshipInABoard import BattleshipInBoard
 
 
+# sys.path.append("..")
+
+
 class TestBattleShipInABoard(unittest.TestCase):
-    
+
     def test_positive_case(self):
         s = BattleshipInBoard()
         board = [
@@ -12,32 +15,32 @@ class TestBattleShipInABoard(unittest.TestCase):
             "X..X",
             "...X",
         ]
-        self.assertEquals(s.count_ship(board), 2)
+        self.assertEqual(s.count_ship(board), 2)
         ################
         board = [
             "...X",
             "XX.X",
             "...X",
         ]
-        self.assertEquals(s.count_ship(board), 2)
+        self.assertEqual(s.count_ship(board), 2)
         ################
         board = [
             "...X",
             "....",
             "XX.X",
         ]
-        self.assertEquals(s.count_ship(board), 3)
+        self.assertEqual(s.count_ship(board), 3)
         ################
         board = [
             "...X",
             "....",
             "....",
         ]
-        self.assertEquals(s.count_ship(board), 1)
+        self.assertEqual(s.count_ship(board), 1)
         ################
         board = [
             "....",
             "....",
             "....",
         ]
-        self.assertEquals(s.count_ship(board), 0)
+        self.assertEqual(s.count_ship(board), 0)
