@@ -25,10 +25,15 @@ def get_final_state(states, days):
 
 def generalize_gcd(num, arr):
     """
-    Find the greatest common divider (GCD) of all elements in arr.
-    
-    num: int, the length of arr
-    arr: array of ints
+
+    Args:
+        num (array): number
+        arr (array): array
+
+    Returns:
+        GCD of num and array
+    Raises:
+        TypeError : if no type
     """
     def gcd(a, b):
         if b == 0:

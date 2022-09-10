@@ -1,4 +1,5 @@
-class LowestCommonAncestor:
+
+class LowestCommonAncestor():
     """
     Find the lowest common ancestor in a tree for any 2 nodes
     """

@@ -63,14 +63,20 @@ if not, we
 
 """
 
-# Definition for a binary tree node.
-import Queue
+from multiprocessing import Queue
 
 
 class TreeNode:
-    
-    def __init__(self, x):
-        self.val = x
+    """
+    Represent a binary tree node, with value
+    """
+    def __init__(self, node_val):
+        """
+        Constructor with value
+        Args:
+            node_val (): value of the node
+        """
+        self.val = node_val
         self.left = None
         self.right = None
 
@@ -85,14 +91,14 @@ class BinaryTreeMultiOrder:
             path += BinaryTreeMultiOrder.pre_order(root.left)
         if root is not None and root.right is not None:
             path += BinaryTreeMultiOrder.pre_order(root.right)
-        
+
         return path
-    
+
     @staticmethod
     def horizontal_order(root):
         if root is None:
             return None
-        q = Queue.Queue()
+        q = Queue()
         q.put(root)
         while q.empty() is False:
             current_node = q.get(False)
@@ -102,26 +108,24 @@ class BinaryTreeMultiOrder:
             if current_node.right is not None:
                 q.put(current_node.right)
         return q
-    
+
     @staticmethod
     def vertical_order(root):
         output = []
         maps = {}
         left_most, right_most = 0, 0
-        nodes = Queue.Queue()
+        nodes = Queue()
         nodes.put(root)
-        cols = Queue.Queue()
-        107
-        
+        cols = Queue()
         cols.put(0)
         while nodes.empty() is False:
             node = nodes.get(False)
             col = cols.get(False)
-            
+
             if col not in maps:
                 maps[col] = []
             maps[col].append(node.val)
-            
+
             if node.left is not None:
                 nodes.put(node.left)
                 cols.put(col - 1)
@@ -130,11 +134,11 @@ class BinaryTreeMultiOrder:
                 nodes.put(node.right)
                 cols.put(col + 1)
                 right_most = max(right_most, col + 1)
-        
+
         for i in range(left_most, right_most + 1):
             output.append(maps[i])
         return output
-    
+
     @staticmethod
     def array_to_tree(index, arr):
         root = None
@@ -145,24 +149,24 @@ class BinaryTreeMultiOrder:
             root.left = BinaryTreeMultiOrder.array_to_tree(2 * index, arr)
             root.right = BinaryTreeMultiOrder.array_to_tree(2 * index + 1, arr)
         return root
-    
+
     @staticmethod
     def build_tree_from_array(self, arr):
-        return BinaryTreeMultiOrder.arrayToTree(1, arr)
-    
+        return BinaryTreeMultiOrder.array_to_tree(1, arr)
+
     @staticmethod
     def print_vertical_order(arr):
         root = BinaryTreeMultiOrder.array_to_tree(1, arr)
         result = BinaryTreeMultiOrder.vertical_order(root)
         print(result)
-    
+
     @staticmethod
     def print_horizontal_order(arr):
         root = BinaryTreeMultiOrder.array_to_tree(1, arr)
         result = BinaryTreeMultiOrder.horizontal_order(root)
         while not result.empty():
             print(result.get(False))
-    
+
     @staticmethod
     def pretty_print(root):
         """

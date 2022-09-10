@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 import itertools
 import os
 import multiprocessing
@@ -47,7 +46,7 @@ def split_file(file_path):
 
 def split_list(list):
     # split a list into smaller chunks
-    for i in xrange(0, len(list), ITEMS_PER_SUBLIST):
+    for i in range(0, len(list), ITEMS_PER_SUBLIST):
         yield list[i: i + ITEMS_PER_SUBLIST]
 
 

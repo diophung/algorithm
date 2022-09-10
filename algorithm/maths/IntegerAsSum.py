@@ -28,8 +28,8 @@ def count_frog_jump(n):
         raise ValueError("N must be positive")
     return pow(2, n - 1)
 
-print(PartitionOfIntegerAsSum.Solve(1))  # 1 way, = (1)
-print(PartitionOfIntegerAsSum.Solve(2))  # 2 ways, = (1,1), (2)
-print(PartitionOfIntegerAsSum.Solve(3))  # 4 ways, = (1,1,1), (1,2), (2,1), (3)
-print(PartitionOfIntegerAsSum.Solve(4))  # 8 ways, = (1,1,1,1), (1,1,2), (1,2,1), (1,3), (2,2), (2,1,1), (3,1), (4)
-print(PartitionOfIntegerAsSum.Solve(60))  # oh dear
+print(PartitionOfIntegerAsSum.solve(1))  # 1 way, = (1)
+print(PartitionOfIntegerAsSum.solve(2))  # 2 ways, = (1,1), (2)
+print(PartitionOfIntegerAsSum.solve(3))  # 4 ways, = (1,1,1), (1,2), (2,1), (3)
+print(PartitionOfIntegerAsSum.solve(4))  # 8 ways, = (1,1,1,1), (1,1,2), (1,2,1), (1,3), (2,2), (2,1,1), (3,1), (4)
+print(PartitionOfIntegerAsSum.solve(60))  # oh dear

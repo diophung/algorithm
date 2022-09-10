@@ -4,8 +4,9 @@ class MovingAverage(object):
     """
     def __init__(self, size):
         """
-        Initialize your data structure here.
-        :type size: int
+
+        Args:
+            size (int): 
         """
         self.size = size
         self.moves = [] * size

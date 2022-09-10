@@ -1,14 +1,28 @@
 # Tree traversal : post, in, pre-order traversal
+from datastructure.TreeNode import BinaryTreeNode
 
 
 class TreeTraversal:
-    def post_order(self, root):
+    def post_order(self, root: BinaryTreeNode):
         if root and root.left:
             self.post_order(root.left)
         if root and root.right:
             self.post_order(root.right)
-        if root:
-            print(root)
+        if root.value:
+            print(root.value)
 
+    def in_order(self, root):
+        if root and root.left:
+            self.post_order(root.left)
+        if root.value:
+            print(root.value)
+        if root and root.right:
+            self.post_order(root.right)
 
-# Post-order
+    def pre_order(self, root):
+        if root.value:
+            print(root.value)
+        if root and root.left:
+            self.post_order(root.left)
+        if root and root.right:
+            self.post_order(root.right)

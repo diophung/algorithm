@@ -5,6 +5,19 @@ import math
 import mmh3
 
 
+def get_bit_array_size(item_count, fp_prob):
+    """
+    Return the size of bit array(m) using following formula
+    m = -(n * log(p)) / (log(2)^2)
+    item_count : int
+        number of items expected to be stored in filter
+    fp_prob : float
+        False Positive probability in decimal
+    """
+    m = -(item_count * math.log(fp_prob)) / (math.log(2) ** 2)
+    return int(m)
+
+
 class BloomFilter:
     """
     To tell if an item is DEFINITELY NOT IN, or PROBABLY IN a set.     
@@ -27,13 +40,13 @@ class BloomFilter:
         # false positive probability in decimal
         self.fp_prob = fp_prob
 
-        self.bit_arr_size = self.get_bit_arr_size(item_count, fp_prob)
+        self.filter_size = get_bit_array_size(item_count, fp_prob)
 
-        # how many time to use the hash function
-        self.hash_count = self.get_hash_count(self.bit_arr_size, item_count)
+        # how many times to use the hash function
+        self.hash_count = self.get_hash_count(self.filter_size, item_count)
 
         # bit array to use as filter, checking set membership
-        self.bit_array = bitarray(self.bit_arr_size)
+        self.bit_array = bitarray(self.filter_size)
 
         # initialize all bits as 0
         self.bit_array.setall(0)
@@ -44,38 +57,27 @@ class BloomFilter:
             # create digest for given item.
             # i work as seed to mmh3.hash() function
             # With different seed, digest created is different
-            digest = mmh3.hash(item, i) % self.bit_arr_size
-            # set the bit True in bit_array
+            digest = mmh3.hash(item, i) % self.filter_size
+            # mark as inserted
             self.bit_array[digest] = True
 
     def check(self, item):
         # can return false positive when, as more element added to the filter
         # the fix: increase bit array size and number of times to hash
         for i in range(self.hash_count):
-            digest = mmh3.hash(item, i) % self.bit_arr_size
+            digest = mmh3.hash(item, i) % self.filter_size
             if not self.bit_array[digest]:
                 # if any of bit is False then,it's not present in filter
                 # else there is a chance it exists
                 return False
         return True
 
-    def get_bit_arr_size(self, item_count, fp_prob):
-        """
-        Return the size of bit array(m) using following formula
-        m = -(n * log(p)) / (log(2)^2)
-        item_count : int
-            number of items expected to be stored in filter
-        fp_prob : float
-            False Positive probability in decimal
-        """
-        m = -(item_count * math.log(fp_prob)) / (math.log(2) ** 2)
-        return int(m)
-
-    def get_hash_count(self, bit_arr_size, item_count):
+    @staticmethod
+    def get_hash_count(bit_arr_size, item_count):
         """
         Return the hash function count k, using following formula
         k = (m/n) * log(2)
-  
+
         bit_arr_size : int
             size of bit array
         item_count : int
@@ -90,7 +92,7 @@ def test_bloom_filter():
     fp_prob = 0.00001  # 0.001%, i.e 99.99% BF is correct
     bloomf = BloomFilter(item_count, fp_prob)
     # bit array size ~ 300MB
-    print("size of bit array: {}".format(bloomf.bit_arr_size))
+    print("size of bit array: {}".format(bloomf.filter_size))
     print("false positive prob: {}".format(bloomf.fp_prob))
     print("hash count: {}".format(bloomf.hash_count))
 
@@ -120,7 +122,3 @@ def test_bloom_filter():
                 print("`{}` probably in {}".format(w, words))
         else:
             print("`{}` DEFINITELY not in {}".format(w, words))
-
-
-if __name__ == "__main__":
-    test_bloom_filter()

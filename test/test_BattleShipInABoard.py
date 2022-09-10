@@ -1,9 +1,9 @@
 import unittest
+import sys
 
 from algorithm.array_matrix.BattleshipInABoard import BattleshipInBoard
 
-
-# sys.path.append("..")
+sys.path.append("..")
 
 
 class TestBattleShipInABoard(unittest.TestCase):
