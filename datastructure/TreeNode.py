@@ -5,12 +5,6 @@ class TreeNode(object):
         self._children = children if children else []
 
     @property
-    def children(self):
-        if self._children:
-            return self._children
-        return []
-
-    @property
     def value(self):
         return self._value;
 
@@ -21,8 +15,11 @@ class TreeNode(object):
     def add_child(self, child):
         self._children.append(child)
 
-    def get_child(self, child_id):
-        for c in self.children:
+    def get_children(self):
+        return self._children
+
+    def get_single_child(self, child_id):
+        for c in self.get_children():
             if c.id == child_id:
                 return c
         return None
@@ -36,7 +33,7 @@ class TreeNode(object):
         if self.value == node.value:
             return True
         else:
-            for child in self.children:
+            for child in self.get_children():
                 if child.is_ancestor(node):
                     return True
         return False

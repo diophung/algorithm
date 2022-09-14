@@ -1,7 +1,7 @@
 import unittest
 import sys
 
-from algorithm.array_matrix.BattleshipInABoard import BattleshipInBoard
+from algo.array_matrix.BattleshipInABoard import BattleshipInBoard
 
 sys.path.append("..")
 

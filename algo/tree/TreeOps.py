@@ -22,8 +22,8 @@ class TreeOpsTest(unittest.TestCase):
         root.add_child(TreeNode(1))
         root.add_child(TreeNode(2))
         
-        root.get_child(1).add_child(TreeNode(3))
-        root.get_child(2).add_child(TreeNode(4))
+        root.get_single_child(1).add_child(TreeNode(3))
+        root.get_single_child(2).add_child(TreeNode(4))
         
         expected = [3, 4]
         nodes = [i.id for i in node_by_level(root, 1, 3)]
