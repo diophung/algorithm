@@ -1,4 +1,4 @@
-# About this
+# About
 ------
 It's my leisure works on algorithms and data structure to keep my hand dirty.
 
@@ -12,8 +12,11 @@ pip install -r requirements.txt
 ```
 
 ## Test
+To run tests: 
 ```
-python tests/TestSuite.py
+cd tests
+chmod +x ./test_run.sh
+./test_run.sh
 ```
 
 # Algorithms
