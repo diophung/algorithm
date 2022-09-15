@@ -1,5 +1,6 @@
 import requests
 from urllib import request
+import unittest
 
 
 class JottoGameSolver:
@@ -13,49 +14,47 @@ class JottoGameSolver:
         # or get from /usr/share/dict/words
         return [str(line.strip(), 'utf-8') for line in request.urlopen(words_url)]
 
-
-    """
-    Test required
-    """
-
     def get_secret_word(self, guesses_and_match_counts: list[tuple[str, int]]):
         """
-        Missing summary--what is this doing?
-        1. filter word list down to only correct-length words
-        2. ???
+        To find the secret word, given the list of guesses.
+        Each guess is represented by a tuple: (word, match_count)
+            word: the guessed English word
+            match_count: the number of character that matches (both index and value)
 
         Returns:
-
+            a single English word that satisfies every condition in the list of guessed words
         """
-        ws = self.get_english_words()  # ws --> same_length_words
-        new_ws = []
-        for w in ws:
-            if len(w) == len(guesses_and_match_counts[0][0]):
-                new_ws.append(w)
-        ws = new_ws
+        english_words = self.get_english_words()  # ws --> same_length_words
+        new_words = []
+        for word in english_words:
+            if len(word) == len(guesses_and_match_counts[0][0]):
+                new_words.append(word)
+        english_words = new_words
 
         # loop through all guesses,
         # compare each word in the filter sets against the guess,
-        # if the word meets the constraint, add it to the output
+        # if the word meets the constraint, then add it to the output
+        for guessed_word, count in guesses_and_match_counts:
+            new_words = []
+            for word in english_words:
+                number_of_matches = 0  #
+                for c in range(len(guessed_word)):
+                    if guessed_word[c] == word[c]:
+                        number_of_matches += 1
+                if number_of_matches == count:
+                    new_words.append(word)
+            english_words = new_words
+        return english_words[0]
 
-        for guess, count in guesses_and_match_counts:
-            new_ws = []
-            for w in ws:
-                n_matches = 0  #
-                for c in range(len(guess)):
-                    if guess[c] == w[c]:
-                        n_matches += 1
-                if n_matches == count:
-                    new_ws.append(w)
-            ws = new_ws
-        return ws
 
+class JottoGameSolverTest(unittest.TestCase):
 
-sample_case_0 = [('TIGER', 0), ('GOOSE', 3), ('MOOSE', 4), ('HORSE', 3)]  # MOUSE
-sample_case_1 = [('HEAD', 0), ('NECK', 1), ('KNEE', 1), ('FOOT', 1), ('FACE', 1), ('LASH', 1)]  # NOSE
-sample_case_2 = [('POTATO', 3), ('CELERY', 2), ('TURKEY', 0), ('PAPAYA', 1)]  # GELATO
+    def test_positive_case(self):
+        sample_case_0 = [('TIGER', 0), ('GOOSE', 3), ('MOOSE', 4), ('HORSE', 3)]  # MOUSE
+        sample_case_1 = [('HEAD', 0), ('NECK', 1), ('KNEE', 1), ('FOOT', 1), ('FACE', 1), ('LASH', 1)]  # NOSE
+        sample_case_2 = [('POTATO', 3), ('CELERY', 2), ('TURKEY', 0), ('PAPAYA', 1)]  # GELATO
 
-sln = JottoGameSolver()
-print(sln.get_secret_word(sample_case_0))
-print(sln.get_secret_word(sample_case_1))
-print(sln.get_secret_word(sample_case_2))
+        sln = JottoGameSolver()
+        self.assertEqual(sln.get_secret_word(sample_case_0), "MOUSE")
+        self.assertEqual(sln.get_secret_word(sample_case_1), "NOSE")
+        self.assertEqual(sln.get_secret_word(sample_case_2), "GELATO")
