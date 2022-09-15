@@ -3,8 +3,6 @@ import sys
 
 from algo.array_matrix.BattleshipInABoard import BattleshipInBoard
 
-sys.path.append("..")
-
 
 class TestBattleShipInABoard(unittest.TestCase):
 

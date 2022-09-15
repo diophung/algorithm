@@ -30,7 +30,7 @@ class TreeNode(object):
         """
         if not node or not self.value:
             return False
-        if self.value == node.value:
+        if self.value == node.val:
             return True
         else:
             for child in self.get_children():
@@ -40,13 +40,11 @@ class TreeNode(object):
 
 
 class BinaryTreeNode(TreeNode):
-    left = None
-    right = None
-
-    def __init__(self, value: int, left, right):
-        self.value = value
-        self.left = left
-        self.right = right
+    def __init__(self, value, left, right, node_id):
+        super().__init__(node_id, value)
+        self._val = value
+        self._left = left
+        self._right = right
 
     @property
     def left(self):
@@ -54,5 +52,8 @@ class BinaryTreeNode(TreeNode):
 
     @property
     def right(self):
-        return self.right
+        return self._right
 
+    @property
+    def val(self):
+        return self._val

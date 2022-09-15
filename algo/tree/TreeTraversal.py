@@ -14,14 +14,14 @@ class TreeTraversal:
     def in_order(self, root):
         if root and root.left:
             self.post_order(root.left)
-        if root.value:
-            print(root.value)
+        if root.val:
+            print(root.val)
         if root and root.right:
             self.post_order(root.right)
 
     def pre_order(self, root):
-        if root.value:
-            print(root.value)
+        if root.val:
+            print(root.val)
         if root and root.left:
             self.post_order(root.left)
         if root and root.right:

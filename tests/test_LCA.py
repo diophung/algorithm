@@ -35,7 +35,7 @@ class TestLowestCommonAncestor(unittest.TestCase):
 
         root.add_child(A)
         root.add_child(C)
-        self.assertEqual(lca.lowest_common_ancestor(root, B, D).value, "root")  # expect root
-        self.assertEqual(lca.lowest_common_ancestor(root, F, E).value, "C")  # expect C
-        self.assertEqual(lca.lowest_common_ancestor(root, A, E).value, "root")  # expect root
-        self.assertEqual(lca.lowest_common_ancestor(root, D, E).value, "D")  # expect D
+        self.assertEqual(lca.lowest_common_ancestor(root, B, D).val, "root")  # expect root
+        self.assertEqual(lca.lowest_common_ancestor(root, F, E).val, "C")  # expect C
+        self.assertEqual(lca.lowest_common_ancestor(root, A, E).val, "root")  # expect root
+        self.assertEqual(lca.lowest_common_ancestor(root, D, E).val, "D")  # expect D

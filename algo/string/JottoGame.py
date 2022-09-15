@@ -3,9 +3,6 @@ from urllib import request
 
 
 class JottoGameSolver:
-    # Example solution # 2 for code review
-
-    from urllib import request
 
     def get_english_words(self):
         """
@@ -16,9 +13,6 @@ class JottoGameSolver:
         # or get from /usr/share/dict/words
         return [str(line.strip(), 'utf-8') for line in request.urlopen(words_url)]
 
-    sample_case_0 = [('TIGER', 0), ('GOOSE', 3), ('MOOSE', 4), ('HORSE', 3)]
-    sample_case_1 = [('HEAD', 0), ('NECK', 1), ('KNEE', 1), ('FOOT', 1), ('FACE', 1), ('LASH', 1)]
-    sample_case_2 = [('POTATO', 3), ('CELERY', 2), ('TURKEY', 0), ('PAPAYA', 1)]
 
     """
     Test required
@@ -44,7 +38,7 @@ class JottoGameSolver:
         # compare each word in the filter sets against the guess,
         # if the word meets the constraint, add it to the output
 
-        for guess, count in guesses_and_match_counts:  # complexity:
+        for guess, count in guesses_and_match_counts:
             new_ws = []
             for w in ws:
                 n_matches = 0  #
@@ -56,6 +50,12 @@ class JottoGameSolver:
             ws = new_ws
         return ws
 
-    print(get_secret_word(sample_case_0))
-    print(get_secret_word(sample_case_1))
-    print(get_secret_word(sample_case_2))
+
+sample_case_0 = [('TIGER', 0), ('GOOSE', 3), ('MOOSE', 4), ('HORSE', 3)]  # MOUSE
+sample_case_1 = [('HEAD', 0), ('NECK', 1), ('KNEE', 1), ('FOOT', 1), ('FACE', 1), ('LASH', 1)]  # NOSE
+sample_case_2 = [('POTATO', 3), ('CELERY', 2), ('TURKEY', 0), ('PAPAYA', 1)]  # GELATO
+
+sln = JottoGameSolver()
+print(sln.get_secret_word(sample_case_0))
+print(sln.get_secret_word(sample_case_1))
+print(sln.get_secret_word(sample_case_2))

@@ -1,7 +1,5 @@
 import unittest
-from Queue import Queue
-
-from datastructure.TreeNode import TreeNode
+import datastructure.TreeNode
 
 
 def node_by_level(curr_node, curr_lvl, target_lvl):
@@ -10,7 +8,7 @@ def node_by_level(curr_node, curr_lvl, target_lvl):
     if curr_lvl == target_lvl:
         res += [curr_node]
     else:
-        for c in curr_node.children:
+        for c in curr_node.get_children():
             res += node_by_level(c, curr_lvl + 1, target_lvl)
     return res
 
@@ -18,12 +16,12 @@ def node_by_level(curr_node, curr_lvl, target_lvl):
 class TreeOpsTest(unittest.TestCase):
     
     def test_print_by_level(self):
-        root = TreeNode(0)
-        root.add_child(TreeNode(1))
-        root.add_child(TreeNode(2))
+        root = datastructure.TreeNode.TreeNode(0)
+        root.add_child(datastructure.TreeNode.TreeNode(1))
+        root.add_child(datastructure.TreeNode.TreeNode(2))
         
-        root.get_single_child(1).add_child(TreeNode(3))
-        root.get_single_child(2).add_child(TreeNode(4))
+        root.get_single_child(1).add_child(datastructure.TreeNode.TreeNode(3))
+        root.get_single_child(2).add_child(datastructure.TreeNode.TreeNode(4))
         
         expected = [3, 4]
         nodes = [i.id for i in node_by_level(root, 1, 3)]
