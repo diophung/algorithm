@@ -67,7 +67,8 @@ class JeepDrone:
         return neighbors
 
     def is_in_map(self, point):
-        return 0 <= point[0] < self.COL_SIZE and 0 <= point[1] < self.ROW_SIZE
+        return 0 <= point[0] < self.COL_SIZE \
+               and 0 <= point[1] < self.ROW_SIZE
 
     @staticmethod
     def navigate(point, x, y):

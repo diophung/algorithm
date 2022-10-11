@@ -39,21 +39,4 @@ class TreeNode(object):
         return False
 
 
-class BinaryTreeNode(TreeNode):
-    def __init__(self, value, left, right, node_id):
-        super().__init__(node_id, value)
-        self._val = value
-        self._left = left
-        self._right = right
 
-    @property
-    def left(self):
-        return self.left
-
-    @property
-    def right(self):
-        return self._right
-
-    @property
-    def val(self):
-        return self._val
