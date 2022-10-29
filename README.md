@@ -19,8 +19,7 @@ chmod +x ./test_run.sh
 ./test_run.sh
 ```
 
-# Algorithms
-----------
+# Topic in algorithms
 ## Divide & Conquer
 - Break down the original problem to smaller pieces and solve each of them, thus solve the whole problem.
 
@@ -41,8 +40,8 @@ chmod +x ./test_run.sh
 - Minimax, Maximin
 
 
-# Data Structure
-----------
+# Topics in Data Structure
+
 ## Array & Matrix
 - Traversal, sorting, 
 
@@ -62,5 +61,7 @@ chmod +x ./test_run.sh
 - Hash function, double hashing, chain-link, hash-collision.
 
 ## Graph
-- Dijkstra's shortest path, Hamilton cycle, cyclic vs non-cyclic, directed vs. non-directed, uni-directional.
+- DFS, BFS, Dijkstra's shortest path, Hamilton cycle, cyclic vs non-cyclic, directed vs. non-directed, uni-directional.
 
+## Advanced structure
+- Bloom filter, Trie, Skip list,
