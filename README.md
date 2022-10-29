@@ -1,6 +1,6 @@
 # About
 ------
-It's my leisure works on algorithms and data structure to keep my hand dirty.
+It's my works at leisure time on algorithms and data structures to keep myself hands-on. There will be another repo for system design & architecture (coming soon).
 
 ## Requirements
 - python 3.x
@@ -63,5 +63,5 @@ chmod +x ./test_run.sh
 ## Graph
 - DFS, BFS, Dijkstra's shortest path, Hamilton cycle, cyclic vs non-cyclic, directed vs. non-directed, uni-directional.
 
-## Advanced structure
-- Bloom filter, Trie, Skip list,
+## Advanced data structures
+- Bloom filter, Trie, Skip list.
