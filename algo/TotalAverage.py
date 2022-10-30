@@ -13,8 +13,12 @@ class MovingAverage(object):
 
     def next(self, val):
         """
-        :type val: int
-        :rtype: float
+        return the average
+        Args:
+            val (int):
+
+        Returns:
+
         """
         self.moves.append(val)
         if len(self.moves) > self.size:

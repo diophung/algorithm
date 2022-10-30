@@ -8,7 +8,8 @@ if symbol is "Z", remove the last score from the total score.
 
 
 def totalScore(blocks, n):
-    return 0
+    so_far = 0
+    return so_far
 
 
 blocks = [5, -2, 4, "Z", "X", 9, "+", "+"]
