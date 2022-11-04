@@ -1,4 +1,7 @@
+import math
+import random
 import unittest
+
 
 class SumOfTwo:
     @staticmethod
@@ -19,7 +22,7 @@ class SumOfTwo:
             keep two indexes: start, end
             curr = ints[start] + int[end]
             while start != end:
-                if curr == target -> found, check uniqueness and add to output
+                if curr == target -> check uniqueness, add to output, increase start & reduce end
                 if curr > target --> reduce end
                 if curr < target --> increase start
         """
@@ -50,26 +53,29 @@ class SumOfThree:
         Return all unique triplets those sum up to "target"
         Args:
             ints (list[int])): array of integers
-            target_sum (int): target number
+            target (int): target number
 
         Returns:
             list of unique triplets that sum up to target list[(a,b,c)]
-
         """
 
         """
-        Algo:
-            Sort array
-            For each (k,v) in array:
-                pairs = sum_of_two(target[k : END], target - v))
-                if (element, pair[1], pair[2]) is unique:
-                    add to output
+        find_triplets algo:
+            sort array by incr 
+            for each (key ,value) in enumerate(array):
+                pairs = find_pairs (remaining elements in array, new target = target - value)
+                for each pair:
+                    if (element, pairs[0], pairs[1]) is unique:
+                        add to output
+                    
+        Algo for SumOfTwo:
+            
         """
         output = []
-        LENGTH = len(ints)
+        length = len(ints)
         ints = sorted(ints)
         for k, v in enumerate(ints):
-            pairs = SumOfTwo.find_pairs(ints[k+1:LENGTH], target - v)
+            pairs = SumOfTwo.find_pairs(ints[k + 1: length], target - v)
             if pairs:
                 for pair in pairs:
                     temp = sorted([v, pair[0], pair[1]])
@@ -87,7 +93,19 @@ class SumOfNTests(unittest.TestCase):
 
     def test_find_sum_of_three_positive(self):
         ints = [3, 0, -1, 2, 1, 2, 0]
-        ints = sorted(ints) # [-1, 0, 0, 1, 2, 2, 3])
+        ints = sorted(ints)  # [-1, 0, 0, 1, 2, 2, 3])
         res = SumOfThree.find_triplets(ints, target=3)
         self.assertEqual([(-1, 1, 3), (-1, 2, 2), (0, 0, 3), (0, 1, 2)], res)
         self.assertEqual(SumOfThree.find_triplets(ints, target=10), [])
+
+    def test_find_sum_of_three_large_set(self):
+        ints = []
+        for i in range(int(math.pow(2, 10))):
+            ints.append(random.randint(-1000, 1000))
+        ints = sorted(ints)
+        target = random.randint(-1000, 1000)
+        res = SumOfThree.find_triplets(ints, target)
+        print(f"TARGET = {target}\n TRIPLETS = ")
+        for r in res:
+            print(r)
+        self.assertTrue(res is not None)
