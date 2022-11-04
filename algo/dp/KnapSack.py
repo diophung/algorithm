@@ -1,201 +1,72 @@
-# Initial Rules:
-# * The game consists of 30 cards, where each card has a Value which is a number between 0-9 and a Color which is Red, Green, or Blue (RGB)
-# * Each player gets 3 cards
-# * Each game consists of some number of players, and winners are determined by who has the best Combo:
-#     * Color Combo (3 cards same color) - 300 pts
-#     * Value Combo (3 cards same value) - 30 pts
-#     * Pair Combo (2 cards with same value, and 1 random card) - 10 pts
-# * Scoring: best combo points
-
-# Write the library required to play this game.  Don’t worry about UI, just create a main method to mimic the action of dealing the cards out to 10 players, score the players' hands, show (print) everyone's hand, and declare a winner.
-
 import unittest
 
-"""
-Functional-requirements
-    - deal cards to X (X=10) players
-    - score the hands
-    - print everyone's
-    - declare winner
 
-    Assumption: 30 card, 0-9, Color can change 
-    Client-side:
-    - Call main function --> do all the.
+def knapsack(pairs, W):
+    """
+    Given list of pairs with format (weight, value) and a knapsack that can carry MAX_WEIGHT
+    Get the maximum total value in the knapsack.
+    Args:
+        pairs (list[pair]): input as [(weight1, value1), (weight2, value2)...]
+        W (int): max capacity
 
-    Domain entity:
-    - Player
-    - Game
-    - Card
-    - Scoreboard (?)
+    Returns:
+        max value that can be achieved
 
-Non-functional requirements
-- no worries about scalability right now.
+    """
 
-Strategy pattern to swap our new role
-Strategy Factory to create new strategy if needed
+    wts = [pair[0] for pair in pairs]
+    vals = [pair[1] for pair in pairs]
+    LE = len(pairs)
+    # map of value to weight, optimized at each cell
+    dp = [[0 for x in range(W + 1)] for x in range(LE + 1)]
 
-"""
+    for i in range(LE + 1):
+        for w in range(W + 1):
+            if i == 0 or w == 0:
+                dp[i][w] = 0
 
+            # if more weight to consider
+            # the need to maximize value
+            # by comparing prev and current items
+            elif wts[i - 1] <= w:
+                remaining_weight = W - wts[i - 1]
+                new_val = vals[i - 1] + dp[i - 1][remaining_weight]
+                other_val = dp[i - 1][w]
 
-class Color:
-    """ """
+                # choose the better one
+                dp[i][w] = max(new_val, other_val)
+            else:
+                dp[i][w] = dp[i - 1][w]
 
-    def __init__(self, name):
-        self._name = name
-
-
-class CardValue:
-    def __init__(self, val):
-        self._val = val
-
-
-class Player:
-    MAX_CARD = 3
-
-    def __init__(self, player_id, cards=[]):
-        self._player_id = player_id
-        self.is_winner = False
-        self._cards = cards
-
-    @property
-    def cards(self):
-        return self._cards
-
-    def get_deal_card(self, new_card):
-        if len(self._cards) == Player.MAX_CARD:
-            raise ValueError("Already has max card: {} cards".format(Player.MAX_CARD))
-
-        self._cards.append(new_card)
-
-    def get_score(self):
-        return
+    return dp[LE][W]
 
 
-class Card:
-    def __init__(self, color, value):
-        """ """
-        self._color = color
-        self._value = value
+def knapsack_recur(weights, values, max_weight, n):
+    if n == 0 or max_weight == 0:
+        return 0
 
-    def get_color(self):
-        return self._color
+    # if this item should not be in the knapsack
+    if weights[n - 1] > max_weight:
+        return knapsack_recur(weights, values, max_weight, n - 1)
 
-    def get_value(self):
-        return self._value
-
-
-class V1CardGameStrategy:
-    COLOR_COMBO_SCORE = 300
-    VALUE_COMBO_SCORE = 30
-    PAIR_COMBO_SCORE = 10
-
-    def deal_cards(self, players, cards):
-        """ Randomly distribute 30 cards to 10 players """
-        """
-        cards: [] 
-        ramdomize using Python built-in tools
-        pop the cards , 3 cards to each player
-        move the player with 3 cards out 
-        continue
-
-        """
-        pass
-
-    def _is_same_color(self, cards):
-        return True
-
-    def _is_same_value(self, cards):
-        return True
-
-    def _is_pair_combo(self, cards):
-        return True
-
-    def get_score(self, player):
-        """
-        #     * Color Combo (3 cards same color) - 300 pts
-        #     * Value Combo (3 cards same value) - 30 pts
-        #     * Pair Combo (2 cards with same value, and 1 random card) - 10 pts
-
-        """
-        total_score = 0
-        my_cards = player.cards
-        my_color = player.cards[0].get_color()
-        my_value = player.cards[0].get_value()
-        is_same_color = self._is_same_color(my_cards)
-        is_same_value = self._is_same_value(my_cards)
-        is_pair_combo = self._is_pair_combo(my_cards)
-
-        if is_same_color:
-            return V1CardGameStrategy.COLOR_COMBO_SCORE
-
-        if is_same_value:
-            return V1CardGameStrategy.VALUE_COMBO_SCORE
-
-        if is_pair_combo:
-            return V1CardGameStrategy.PAIR_COMBO_SCORE
-        pass
-
-    def get_players_hands(self, players):
-        for p in players:
-            print(p.cards)
-
-    def get_winners(self, players):
-        """
-        return all winners with same score
-        """
-        winners = []
-        sorted(players, key=lambda player: player.get_score())
-        max_score = players[0].get_score()
-
-        # go through all players
-        for p in players:
-            if max_score == p.get_score():
-                winners.append(p)
-            break
-
-        return winners
-
-    def play_game(self, players, cards):
-        """
-        - deal cards to X (X=10) players
-        - score the hands
-        - print everyone's hands
-        - declare winner
-        """
-        self.deal_cards(players, cards)
-        self.get_score(self, players)
-        self.get_players_hands(self, players)
-        winners = self.get_winner(players)
-        print(winners)
+    # else if this item might be in the optimized soln
+    # then we choose the better out of
+    # 1) include n-th item vs. 2) not include n-th item
+    else:
+        included = values[n - 1] + knapsack_recur(weights, values, max_weight - weights[n - 1], n - 1)
+        not_included = knapsack_recur(weights, values, max_weight, n - 1)
+        return max(included, not_included)
 
 
-class Game:
-    def __init__(self, players, cards, game_strategy):
-        """ """
-        self._players = players
-        self._cards = cards
-        self._strategy = game_strategy
+class KnapSackTest(unittest.TestCase):
 
-    def play_game(self):
-        # Execute the strategy
-        self._strategy.play_game()
-
-
-class V1CardGameTest(unittest.TestCase):
-
-    def test_edge_case_all_same_score(self):
-        v1 = V1CardGameStrategy()
-        players = []
-        cards = []
-        game = Game(players, cards, v1)
-        game.play_game()
-
-if __name__ == "__main__ ":
-    unittest.main()
-
-
-
-
-
-
-
+    def test_knap_sack_positive(self):
+        weight_value_pairs = [(3, 50), (1, 10), (1, 20), (1, 30)]  # W= 3, expect values = 10 + 20 + 30 
+        weights = [pair[0] for pair in weight_value_pairs]
+        values = [pair[1] for pair in weight_value_pairs]
+        N = len(weights)
+        W = 3
+        val_dp = knapsack(weight_value_pairs, W)
+        val_recur = knapsack_recur(weights, values, W, N)
+        self.assertTrue(val_dp == 60)
+        self.assertTrue(val_recur == 60)
