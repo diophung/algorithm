@@ -1,6 +1,6 @@
 # About
 ------
-It's my works at leisure time on algorithms and data structures to keep myself hands-on. There will be another repo for system design & architecture (coming soon).
+My works in free time to brush up algorithms and data structures, and to keep myself hands-on.
 
 ## Requirements
 - python 3.x
